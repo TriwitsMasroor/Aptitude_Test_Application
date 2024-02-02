@@ -1,12 +1,45 @@
 <?php $this->load->view('header'); ?>
 
 <link rel="stylesheet" href="<?= base_url('public/assets/css/styles.css') ?>">
+<style>
+    .option{
+        margin-top: 15px;
+    }
 
+    label {
+    font-weight: bold;
+    margin-right: 10px;
+    
+    }
+
+    select {
+    padding: 8px;
+    margin-right: 10px;
+    }
+
+    .submit {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+</style>
 <!-- Fixed header div -->
 <div class="fixed-header">
     <?php $this->load->view('header'); ?>
 </div>
-
+<div class="option">
+<form method="post" action="<?php echo base_url('index.php/AdminController/fetch'); ?>">
+    <label for="order">Select Order:</label>
+    <select name="order" id="order">
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+    </select>
+    <button class="submit" type="submit">Apply</button>
+</form>
+</div>
 <div class="content content-with-fixed-header">
     <div class="table-responsive table-container">
         <table class="table table-bordered">

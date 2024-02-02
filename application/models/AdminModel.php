@@ -113,6 +113,11 @@ class AdminModel extends CI_Model {
         $this->db->delete('user'); // Replace 'your_table_name' with the actual table name
     }
     
+    public function fetch($order = 'asc') {
+        $this->db->order_by('date', $order);
+        $query = $this->db->get('user');
+        return $query->result_array();
+        }
    
     
 

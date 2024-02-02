@@ -408,6 +408,34 @@ public function updateStatus() {
     	redirect('AdminController/viewResult');
 	}
 
+	public function fetch() {
+		// Get the selected order from the form
+		$order = $this->input->post('order');
+		
+		// Default order if not provided or invalid
+		if ($order !== 'asc' && $order !== 'desc') {
+		$order = 'asc';
+		}
+		$config['base_url'] = base_url('index.php/AdminController/viewResult');
+    $config['total_rows'] = $this->AdminModel->count_AllUserData();
+    $config['per_page'] = 10; // Number of records per page
+    $config['uri_segment'] = 3; // The segment number containing the offset
+
+    $this->pagination->initialize($config);
+
+    // Get the current offset from the URL segment
+    $offset = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
+
+    // Load data from the model using the pagination parameters
+    $data['result'] = $this->AdminModel->get_AllUserData($config['per_page'], $offset);
+		$data['active_tab'] = 'view_result';
+		// Call the function from the model to get sorted records with the selected order
+		$data['result'] = $this->AdminModel->fetch($order);
+
+		// Load the view and pass the data
+		$this->load->view('admin_view/view_result', $data);
+		}
+
 
 
     // Other controller methods...
